@@ -50,6 +50,17 @@ To start your new project, you can follow the steps below:
 3. Download Docker and run it. If your are a MacOSx user, download Docker from [Edge Channel](https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac)
 and uncomment `- ./:/var/www/html:delegated # With Docker Edge version` rows in your `docker-compose.yml``.  
 See also [Performance tuning for volume mounts ](https://docs.docker.com/docker-for-mac/osxfs-caching/#performance-implications-of-host-container-file-system-consistency)
-4. Run `docker-compose up -d`.
-5. Open [http://drupal.docker.localhost:8000/](http://drupal.docker.localhost:8000/) in your browser.
-6. Enjoy your brand new Drupal 8 website!
+4. Setup your local database setting adding this code into ``.platform/local/shared/settings.local.php``:
+   ```
+   $databases['default']['default'] = array(
+     'driver' => 'mysql',
+     'host' => 'mariadb',
+     'username' => 'drupal',
+     'password' => 'drupal',
+     'database' => 'drupal',
+     'prefix' => '',
+   );
+   ```
+5. Run `docker-compose up -d`.
+6. Open [http://drupal.docker.localhost:8000/](http://drupal.docker.localhost:8000/) in your browser.
+7. Enjoy your brand new Drupal 8 website!
