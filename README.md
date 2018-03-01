@@ -39,4 +39,5 @@ git push
 2. We include [`docker-compose.yml`](https://github.com/wodby/docker4drupal/blob/master/docker-compose.yml) file
 to run useful docker containers for local development environment as described here [Docker-based Drupal stack](https://github.com/wodby/docker4drupal).
 You are free to tweak it as needed for your particular environment.
-sSee also [Docker Compose](https://docs.docker.com/compose/). 
+sSee also [Docker Compose](https://docs.docker.com/compose/).
+ 
