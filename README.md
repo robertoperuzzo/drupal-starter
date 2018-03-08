@@ -7,19 +7,7 @@ This project provides a starter kit for Drupal 8 projects mixing [Drupal project
 
 You can use this repository as a reference for your own Drupal projects, and borrow whatever code is needed. 
 
-If you host you project on Platform.sh, the most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) 
-file and the [`.platform`](/.platform) directory. 
-
-Also see:
-
-* [`settings.php`](/web/sites/default/settings.php) - The customized `settings.php` file works for both Platform.sh 
-and local development, setting only those values that are needed in both.  You can add additional values as 
-documented in `default.settings.php` as desired.
-* [`settings.platformsh.php`](/web/sites/default/settings.platformsh.php) - This file contains Platform.sh-specific 
-code to map environment variables into Drupal configuration.  You can add to it as needed. 
-See [the documentation](https://docs.platform.sh/frameworks/drupal8.html) for more examples of common snippets to include here.
-* [`scripts/platformsh`](/scripts/platformsh) - This directory contains our update script to keep this repository 
-in sync with the Drupal Composer project.  It may be safely ignored or removed.
+If you host you project on Platform.sh, I invite you to read complete informations from [Drupal project template for Platform.sh](https://github.com/platformsh/platformsh-example-drupal8) page. 
 
 ## Managing a Drupal site built with Composer
 
@@ -50,7 +38,7 @@ To start your new project, you can follow the steps below:
 3. Download Docker and run it. If your are a MacOSx user, download Docker from [Edge Channel](https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac)
 and uncomment `- ./:/var/www/html:delegated # With Docker Edge version` rows in your `docker-compose.yml``.  
 See also [Performance tuning for volume mounts ](https://docs.docker.com/docker-for-mac/osxfs-caching/#performance-implications-of-host-container-file-system-consistency)
-4. Setup your local database setting adding this code into ``.platform/local/shared/settings.local.php``:
+4. Setup your local database setting adding this code snippet in ``.platform/local/shared/settings.local.php`` file:
    ```
    $databases['default']['default'] = array(
      'driver' => 'mysql',
@@ -61,6 +49,14 @@ See also [Performance tuning for volume mounts ](https://docs.docker.com/docker-
      'prefix' => '',
    );
    ```
-5. Run `docker-compose up -d`.
+5. Run `docker-compose up -d` from your shell.
 6. Open [http://drupal.docker.localhost:8000/](http://drupal.docker.localhost:8000/) in your browser.
 7. Enjoy your brand new Drupal 8 website!
+
+## Contrib Modules
+
+This starter kit contains the following contrib modules dependencies:
+
+| Module name                                           | Packagist name   | Version | 
+| ----------------------------------------------------- | ---------------- | ------- | 
+| [Bootstrap](https://www.drupal.org/project/bootstrap) | drupal/bootstrap | 3.10.0  | 
