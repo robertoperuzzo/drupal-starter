@@ -40,13 +40,15 @@ and uncomment `- ./:/var/www/html:delegated # With Docker Edge version` rows in 
 See also [Performance tuning for volume mounts ](https://docs.docker.com/docker-for-mac/osxfs-caching/#performance-implications-of-host-container-file-system-consistency)
 4. Setup your local database setting adding this code snippet in ``.platform/local/shared/settings.local.php`` file:
    ```
-   $databases['default']['default'] = array(
-     'driver' => 'mysql',
-     'host' => 'mariadb',
+   $databases['default']['default'] = array (
+     'database' => 'drupal',
      'username' => 'drupal',
      'password' => 'drupal',
-     'database' => 'drupal',
      'prefix' => '',
+     'host' => 'mariadb',
+     'port' => '3306',
+     'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+     'driver' => 'mysql',
    );
    ```
 5. Run `docker-compose up -d` from your shell.
