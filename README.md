@@ -57,6 +57,24 @@ See also [Performance tuning for volume mounts ](https://docs.docker.com/docker-
 
 This starter kit contains the following contrib modules dependencies:
 
-| Module name                                           | Packagist name   | Version | 
-| ----------------------------------------------------- | ---------------- | ------- | 
-| [Bootstrap](https://www.drupal.org/project/bootstrap) | drupal/bootstrap | 3.10.0  | 
+| Module name                                                         | Package                 | Version | 
+| ------------------------------------------------------------------- | ----------------------- | ------- | 
+| [Bootstrap](https://www.drupal.org/project/bootstrap)               | drupal/bootstrap        | 3.10.0  | 
+| ------------------------------------------------------------------- | ----------------------- | ------- |
+| [Chaos tool suite (ctools)](https://www.drupal.org/project/ctools)  | drupal/ctools           | 3.0.0   |
+| ------------------------------------------------------------------- | ----------------------- | ------- |
+| [Google Analytics](https://www.drupal.org/project/google_analytics) | drupal/google_analytics | 2.2.0   |
+| ------------------------------------------------------------------- | ----------------------- | ------- |
+| [Metatag](https://www.drupal.org/project/metatag)                   | drupal/metatag          | 1.4.0   |
+| ------------------------------------------------------------------- | ----------------------- | ------- |
+| [Pathauto](https://www.drupal.org/project/pathauto)                 | drupal/pathauto         | 1.1.0   |
+| ------------------------------------------------------------------- | ----------------------- | ------- |
+| [Redirect](https://www.drupal.org/project/redirect)                 | drupal/redirect         | 1.0.0   |
+| ------------------------------------------------------------------- | ----------------------- | ------- |
+| [Reroute Email](https://www.drupal.org/project/reroute_email)       | drupal/reroute_email    | 1.0.0   |
+| ------------------------------------------------------------------- | ----------------------- | ------- |
+| [Simple XML sitemap](https://www.drupal.org/project/simple_sitemap) | drupal/simple_sitemap   | 2.11.0  |
+| ------------------------------------------------------------------- | ----------------------- | ------- |
+| [Sitemap](https://www.drupal.org/project/sitemap)                   | drupal/sitemap          | 1.3.0   |
+| ------------------------------------------------------------------- | ----------------------- | ------- |
+| [Token](https://www.drupal.org/project/token)                       | drupal/token            | 1.1.0   |
