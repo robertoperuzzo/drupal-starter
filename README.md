@@ -33,7 +33,7 @@ sSee also [Docker Compose](https://docs.docker.com/compose/).
 
 To start your new project, you can follow the steps below:
 
-1. Clone this repository `git clone git@github.com:robertoperuzzo/drupal8-starter.git`.
+1. Clone this repository `git clone git@github.com:robertoperuzzo/drupal8-starter.git your-project-name`.
 2. Run `platform build`. For more details [Platform.sh CLI](https://docs.platform.sh/gettingstarted/cli.html).
 3. Download Docker and run it. If your are a MacOSx user, download Docker from [Edge Channel](https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac)
 and uncomment `- ./:/var/www/html:delegated # With Docker Edge version` rows in your `docker-compose.yml``.  
@@ -54,6 +54,23 @@ See also [Performance tuning for volume mounts ](https://docs.docker.com/docker-
 5. Run `docker-compose up -d` from your shell.
 6. Open [http://drupal.docker.localhost:8000/](http://drupal.docker.localhost:8000/) in your browser.
 7. Enjoy your brand new Drupal 8 website!
+
+## Updating Remotes
+You'll need to update your git remotes to reflect that you won't be pushing to github.com with your project’s code. 
+You should rename the original origin remote (the github.com [Drupal 8 project template](https://github.com/robertoperuzzo/drupal8-starter) repository) 
+to 'starter' and create a new origin pointed at your bare repository.
+
+(On your local development environment)
+
+`git remote rename origin starter`
+`git remote add origin path/to/your/central/git/repo`
+
+To see a list of your remote repositories, run the command:
+
+`git remote`
+For a more detailed listing that includes the remote repositories' URLs, add a -v flag (for verbose) to the end of the command:
+
+`git remote -v`
 
 ## Contrib Modules
 
