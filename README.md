@@ -71,3 +71,13 @@ This starter kit contains the following contrib modules dependencies:
 | [Simple XML sitemap](https://www.drupal.org/project/simple_sitemap) | drupal/simple_sitemap   | 2.11.0  |
 | [Sitemap](https://www.drupal.org/project/sitemap)                   | drupal/sitemap          | 1.3.0   |
 | [Token](https://www.drupal.org/project/token)                       | drupal/token            | 1.1.0   |
+
+### Enable modules
+
+If you need to enable some those module, you can use the [Drupal Console](https://drupalconsole.com/) instrusction below:
+
+```docker-compose exec --user 82 php drupal module:install module_name```
+
+For convenience, you can create an alias shell command adding the following instruction to `~/.bash_profile` or `~/.zshrc` files:
+
+```alias ddrupal="docker-compose exec --user 82 php drupal"``` 
