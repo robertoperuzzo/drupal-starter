@@ -62,8 +62,10 @@ to 'starter' and create a new origin pointed at your bare repository.
 
 (On your local development environment)
 
-```git remote rename origin starter```
-```git remote add origin path/to/your/central/git/repo```
+```
+git remote rename origin starter
+git remote add origin path/to/your/central/git/repo
+```
 
 To see a list of your remote repositories, run the command:
 
