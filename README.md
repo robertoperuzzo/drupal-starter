@@ -1,4 +1,4 @@
-# Drupal 8 project template
+# Drupal 8 project starter kit
 
 This project provides a starter kit for Drupal 8 projects mixing [Drupal project template for Platform.sh](https://github.com/platformsh/platformsh-example-drupal8) and
  [Docker-based Drupal stack](https://github.com/wodby/docker4drupal) for local development environment. 
