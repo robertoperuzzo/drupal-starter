@@ -88,6 +88,7 @@ This starter kit contains the following contrib modules dependencies:
 | [Bootstrap](https://www.drupal.org/project/bootstrap)               | drupal/bootstrap        | 3.10.0  | 
 | [Chaos tool suite (ctools)](https://www.drupal.org/project/ctools)  | drupal/ctools           | 3.0.0   |
 | [Google Analytics](https://www.drupal.org/project/google_analytics) | drupal/google_analytics | 2.2.0   |
+| [Mail System](https://www.drupal.org/project/mailsystem)            | drupal/mailsystem       | 4.1.0   |
 | [Metatag](https://www.drupal.org/project/metatag)                   | drupal/metatag          | 1.4.0   |
 | [Pathauto](https://www.drupal.org/project/pathauto)                 | drupal/pathauto         | 1.1.0   |
 | [Redirect](https://www.drupal.org/project/redirect)                 | drupal/redirect         | 1.0.0   |
@@ -104,7 +105,7 @@ If you need to enable some those module, you can use the [Drupal Console](https:
 docker-compose exec --user 82 php drupal module:install module_name
 ```
 
-For convenience, you can create an alias shell command adding the following instruction to `~/.bash_profile` or `~/.zshrc` files:
+For convenience, you can create an alias shell command adding the following instruction in `~/.bash_profile` or `~/.zshrc` files:
 
 ```
 alias ddrupal="docker-compose exec --user 82 php drupal"
