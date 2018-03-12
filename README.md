@@ -88,6 +88,7 @@ This starter kit contains the following contrib modules dependencies:
 | [Bootstrap](https://www.drupal.org/project/bootstrap)               | drupal/bootstrap        | 3.10.0  | 
 | [Chaos tool suite (ctools)](https://www.drupal.org/project/ctools)  | drupal/ctools           | 3.0.0   |
 | [Config Filter](https://www.drupal.org/project/config_filter)       | drupal/config_filter    | 1.1.0   |
+| [Config Ignore](https://www.drupal.org/project/config_ignore)       | drupal/config_ignore    | 2.1.0   |
 | [Config installer](https://www.drupal.org/project/config_installer) | drupal/config_installer | 1.7.0   |
 | [Configuration Split](https://www.drupal.org/project/config_split)  | drupal/config_split     | 1.3.0   |
 | [Google Analytics](https://www.drupal.org/project/google_analytics) | drupal/google_analytics | 2.2.0   |
@@ -99,6 +100,7 @@ This starter kit contains the following contrib modules dependencies:
 | [Simple XML sitemap](https://www.drupal.org/project/simple_sitemap) | drupal/simple_sitemap   | 2.11.0  |
 | [Sitemap](https://www.drupal.org/project/sitemap)                   | drupal/sitemap          | 1.3.0   |
 | [Token](https://www.drupal.org/project/token)                       | drupal/token            | 1.1.0   |
+| [Twig Tweak](https://www.drupal.org/project/twig_tweak)             | drupal/twig_tweak       | 1.9.0   |
 
 ### Enable modules
 
