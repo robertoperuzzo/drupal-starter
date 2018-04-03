@@ -102,6 +102,7 @@ This starter kit contains the following contrib modules dependencies:
 | [Reroute Email](https://www.drupal.org/project/reroute_email)                     | drupal/reroute_email           | 1.0.0   |
 | [Simple XML sitemap](https://www.drupal.org/project/simple_sitemap)               | drupal/simple_sitemap          | 2.11.0  |
 | [Sitemap](https://www.drupal.org/project/sitemap)                                 | drupal/sitemap                 | 1.3.0   |
+| [Stage file proxy](https://www.drupal.org/project/stage_file_proxy)               | drupal/stage_file_proxy        | 1.x-dev |
 | [Token](https://www.drupal.org/project/token)                                     | drupal/token                   | 1.1.0   |
 | [Twig Tweak](https://www.drupal.org/project/twig_tweak)                           | drupal/twig_tweak              | 1.9.0   |
 
