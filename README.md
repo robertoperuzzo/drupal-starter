@@ -53,7 +53,7 @@ See also [Performance tuning for volume mounts ](https://docs.docker.com/docker-
      'driver' => 'mysql',
    );
    ```
-6. Run `docker-compose up -d` from your shell.
+6. Run `make up` from your shell to build up your docker containers.
 7. Open [http://drupal.docker.localhost:8000/](http://drupal.docker.localhost:8000/) in your browser.
 8. Enjoy your brand new Drupal 8 website!
 
@@ -79,7 +79,7 @@ See also [Performance tuning for volume mounts ](https://docs.docker.com/docker-
    ```
 6. Run `composer install`. If you don't have *composer* installed, follow this [tutorial](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx).
 7. Edit `.env` file setting project variables `PROJECT_NAME` and `PROJECT_BASE_URL 
-8. Run `docker-compose up -d` from your shell.
+8. Run `make up` from your shell to build up your docker containers.
 7. Open [http://drupal.docker.localhost:8000/](http://drupal.docker.localhost:8000/) in your browser.
 8. Enjoy your brand new Drupal 8 website!
 
