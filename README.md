@@ -33,6 +33,7 @@ sSee also [Docker Compose](https://docs.docker.com/compose/).
 
 To start your new project, you can follow the steps below:
 
+### With Platform.sh
 1. Clone this repository `git clone git@github.com:robertoperuzzo/drupal8-starter.git your-project-name`.
 2. Run `cd your-project-name`
 3. Run `platform build`. For more details [Platform.sh CLI](https://docs.platform.sh/gettingstarted/cli.html).
@@ -53,6 +54,32 @@ See also [Performance tuning for volume mounts ](https://docs.docker.com/docker-
    );
    ```
 6. Run `docker-compose up -d` from your shell.
+7. Open [http://drupal.docker.localhost:8000/](http://drupal.docker.localhost:8000/) in your browser.
+8. Enjoy your brand new Drupal 8 website!
+
+## Without Platform.sh
+1. Clone this repository `git clone git@github.com:robertoperuzzo/drupal8-starter.git your-project-name`.
+2. Run `cd your-project-name`
+3. Run `platform build`. For more details [Platform.sh CLI](https://docs.platform.sh/gettingstarted/cli.html).
+4. Download Docker and run it. If your are a MacOSx user, download Docker from [Edge Channel](https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac)
+and uncomment `- ./:/var/www/html:delegated # With Docker Edge version` rows in your `docker-compose.yml``.  
+See also [Performance tuning for volume mounts ](https://docs.docker.com/docker-for-mac/osxfs-caching/#performance-implications-of-host-container-file-system-consistency)
+5. Setup your local database setting adding this code snippet in ``.platform/local/shared/settings.local.php`` file:
+   ```
+   $databases['default']['default'] = array (
+     'database' => 'drupal',
+     'username' => 'drupal',
+     'password' => 'drupal',
+     'prefix' => '',
+     'host' => 'mariadb',
+     'port' => '3306',
+     'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+     'driver' => 'mysql',
+   );
+   ```
+6. Run `composer install`. If you don't have *composer* installed, follow this [tutorial](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx).
+7. Edit `.env` file setting project variables `PROJECT_NAME` and `PROJECT_BASE_URL 
+8. Run `docker-compose up -d` from your shell.
 7. Open [http://drupal.docker.localhost:8000/](http://drupal.docker.localhost:8000/) in your browser.
 8. Enjoy your brand new Drupal 8 website!
 
