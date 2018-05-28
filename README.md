@@ -133,6 +133,9 @@ This starter kit contains the following contrib modules dependencies:
 | [Stage file proxy](https://www.drupal.org/project/stage_file_proxy)               | drupal/stage_file_proxy        | 1.x-dev |
 | [Token](https://www.drupal.org/project/token)                                     | drupal/token                   | 1.1.0   |
 | [Twig Tweak](https://www.drupal.org/project/twig_tweak)                           | drupal/twig_tweak              | 1.9.0   |
+| [Captcha](https://www.drupal.org/project/captcha)                                 | drupal/captcha                 | 1.0@beta|
+| [ReCaptcha](https://www.drupal.org/project/recaptcha)                             | drupal/recaptcha               | 2.3.0   |
+| [Permissions filter](https://www.drupal.org/project/permissions_filter)           | drupal/permissions_filter      | 1.0.0   |
 
 ### Enable modules
 
