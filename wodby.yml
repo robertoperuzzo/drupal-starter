@@ -1,0 +1,17 @@
+pipeline:
+  - name: Install dependencies
+    type: command
+    command: composer install --no-interaction --optimize-autoloader
+    directory: $APP_ROOT
+  - name: Drupal 8 databse update
+    type: command
+    command: drush updb
+    directory: $HTTP_ROOT
+  - name: Drupal 8 configuration import
+    type: command
+    command: drush cim
+    directory: $HTTP_ROOT
+  - name: Drupal 8 clear cache
+    type: command
+    command: drush cr
+    directory: $HTTP_ROOT

@@ -27,6 +27,11 @@ $settings['file_scan_ignore_directories'] = [
 // local development.
 // $settings['hash_salt'] = 'change_me';
 
+// Wodby settings.
+if (file_exists('/var/www/conf/wodby.settings.php')) {
+  include '/var/www/conf/wodby.settings.php';
+}
+
 // Set up a config sync directory.
 //
 // This is defined inside the read-only "config" directory, deployed via Git.
