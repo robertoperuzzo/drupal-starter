@@ -39,7 +39,8 @@
         "drupal/captcha": "^1.0@beta",
         "drupal/recaptcha": "^2.4",
         "drupal/permissions_filter": "~1.0",
-        "drupal/easy_breadcrumb": "^1.8"
+        "drupal/easy_breadcrumb": "^1.8",
+        "drupal/iubenda_integration": "^2.0@beta"
     },
     "require-dev": {
         "behat/mink": "~1.7",
@@ -49,10 +50,9 @@
         "mikey179/vfsStream": "~1.2",
         "phpunit/phpunit": "~4.8",
         "symfony/css-selector": "~2.8",
-        "drupal/devel": "~1.2",
+        "drupal/devel": "^2.0",
         "drupal/reroute_email": "~1.0",
-        "drupal/stage_file_proxy": "~1.0",
-        "drupal/kint": "~1.2"
+        "drupal/stage_file_proxy": "~1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
