@@ -20,9 +20,7 @@ class RoboFile extends \Robo\Tasks
     // Drupal init.
     $this->taskExecStack()
       ->stopOnFail()
-      ->exec('make up')
-      ->exec('docker-compose exec --user 82 php composer install')
-      ->exec('docker-compose exec --user 82 php drupal init --destination=/var/www/html/console/ --no-interaction')
+      ->exec('drupal init --destination=/var/www/html/console/ --no-interaction')
       ->run();
 
     // Local settings.
@@ -36,8 +34,8 @@ class RoboFile extends \Robo\Tasks
     // Drupal install.
     $this->taskExecStack()
       ->stopOnFail()
-      ->exec('docker-compose exec --user 82 php drupal site:install --force --no-interaction')
-      ->exec('make drush cr')
+      ->exec('drupal site:install --force --no-interaction')
+      ->exec('drush cr')
       ->run();
 
     // Remove database settings from settings.php.
