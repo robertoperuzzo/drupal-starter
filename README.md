@@ -111,42 +111,28 @@ git remote -v
 
 This starter kit contains the following contrib modules dependencies:
 
-| Module name                                                                       | Package                        | Version | 
-| --------------------------------------------------------------------------------- | ------------------------------ | ------- | 
-| [Admin Toolbar](https://www.drupal.org/project/admin_toolbar)                     | drupal/admin_toolbar           | 1.23.0  |
-| [Adminimal Admin Toolbar](https://www.drupal.org/project/adminimal_admin_toolbar) | drupal/adminimal_admin_toolbar | 1.5.0   |
-| [Adminimal Theme](https://www.drupal.org/project/adminimal_theme)                 | drupal/adminimal_theme         | 1.3.0   |
-| [Bootstrap](https://www.drupal.org/project/bootstrap)                             | drupal/bootstrap               | 3.10.0  | 
-| [Chaos tool suite (ctools)](https://www.drupal.org/project/ctools)                | drupal/ctools                  | 3.0.0   |
-| [Config Filter](https://www.drupal.org/project/config_filter)                     | drupal/config_filter           | 1.1.0   |
-| [Config Ignore](https://www.drupal.org/project/config_ignore)                     | drupal/config_ignore           | 2.1.0   |
-| [Config installer](https://www.drupal.org/project/config_installer)               | drupal/config_installer        | 1.7.0   |
-| [Configuration Split](https://www.drupal.org/project/config_split)                | drupal/config_split            | 1.3.0   |
-| [Google Analytics](https://www.drupal.org/project/google_analytics)               | drupal/google_analytics        | 2.2.0   |
-| [Mail System](https://www.drupal.org/project/mailsystem)                          | drupal/mailsystem              | 4.1.0   |
-| [Metatag](https://www.drupal.org/project/metatag)                                 | drupal/metatag                 | 1.4.0   |
-| [Pathauto](https://www.drupal.org/project/pathauto)                               | drupal/pathauto                | 1.1.0   |
-| [Redirect](https://www.drupal.org/project/redirect)                               | drupal/redirect                | 1.0.0   |
-| [Reroute Email](https://www.drupal.org/project/reroute_email)                     | drupal/reroute_email           | 1.0.0   |
-| [Simple XML sitemap](https://www.drupal.org/project/simple_sitemap)               | drupal/simple_sitemap          | 2.11.0  |
-| [Sitemap](https://www.drupal.org/project/sitemap)                                 | drupal/sitemap                 | 1.3.0   |
-| [Stage file proxy](https://www.drupal.org/project/stage_file_proxy)               | drupal/stage_file_proxy        | 1.x-dev |
-| [Token](https://www.drupal.org/project/token)                                     | drupal/token                   | 1.1.0   |
-| [Twig Tweak](https://www.drupal.org/project/twig_tweak)                           | drupal/twig_tweak              | 1.9.0   |
-| [Captcha](https://www.drupal.org/project/captcha)                                 | drupal/captcha                 | 1.0@beta|
-| [ReCaptcha](https://www.drupal.org/project/recaptcha)                             | drupal/recaptcha               | 2.3.0   |
-| [Permissions filter](https://www.drupal.org/project/permissions_filter)           | drupal/permissions_filter      | 1.0.0   |
-
-### Enable modules
-
-If you need to enable some those module, you can use the [Drupal Console](https://drupalconsole.com/) instrusction below:
-
-```
-docker-compose exec --user 82 php drupal module:install module_name
-```
-
-For convenience, you can create an alias shell command adding the following instruction in `~/.bash_profile` or `~/.zshrc` files:
-
-```
-alias ddrupal="docker-compose exec --user 82 php drupal"
-``` 
+| Module name                                                                       | Package                        | 
+| --------------------------------------------------------------------------------- | ------------------------------ | 
+| [Admin Toolbar](https://www.drupal.org/project/admin_toolbar)                     | drupal/admin_toolbar           |
+| [Adminimal Admin Toolbar](https://www.drupal.org/project/adminimal_admin_toolbar) | drupal/adminimal_admin_toolbar |
+| [Adminimal Theme](https://www.drupal.org/project/adminimal_theme)                 | drupal/adminimal_theme         |
+| [Bootstrap](https://www.drupal.org/project/bootstrap)                             | drupal/bootstrap               | 
+| [Chaos tool suite (ctools)](https://www.drupal.org/project/ctools)                | drupal/ctools                  |
+| [Config Filter](https://www.drupal.org/project/config_filter)                     | drupal/config_filter           |
+| [Config Ignore](https://www.drupal.org/project/config_ignore)                     | drupal/config_ignore           |
+| [Config installer](https://www.drupal.org/project/config_installer)               | drupal/config_installer        |
+| [Configuration Split](https://www.drupal.org/project/config_split)                | drupal/config_split            |
+| [Google Analytics](https://www.drupal.org/project/google_analytics)               | drupal/google_analytics        |
+| [Mail System](https://www.drupal.org/project/mailsystem)                          | drupal/mailsystem              |
+| [Metatag](https://www.drupal.org/project/metatag)                                 | drupal/metatag                 |
+| [Pathauto](https://www.drupal.org/project/pathauto)                               | drupal/pathauto                |
+| [Redirect](https://www.drupal.org/project/redirect)                               | drupal/redirect                |
+| [Reroute Email](https://www.drupal.org/project/reroute_email)                     | drupal/reroute_email           |
+| [Simple XML sitemap](https://www.drupal.org/project/simple_sitemap)               | drupal/simple_sitemap          |
+| [Sitemap](https://www.drupal.org/project/sitemap)                                 | drupal/sitemap                 |
+| [Stage file proxy](https://www.drupal.org/project/stage_file_proxy)               | drupal/stage_file_proxy        |
+| [Token](https://www.drupal.org/project/token)                                     | drupal/token                   |
+| [Twig Tweak](https://www.drupal.org/project/twig_tweak)                           | drupal/twig_tweak              |
+| [Captcha](https://www.drupal.org/project/captcha)                                 | drupal/captcha                 |
+| [ReCaptcha](https://www.drupal.org/project/recaptcha)                             | drupal/recaptcha               |
+| [Permissions filter](https://www.drupal.org/project/permissions_filter)           | drupal/permissions_filter      |

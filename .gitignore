@@ -17,3 +17,8 @@ web/sites/*/files
 
 # Ignore configuration files that may contain sensitive information.
 web/sites/*/settings.local.php
+
+# Ignore docker4drupal files
+docker-compose.override.yml
+.env
+mariadb-init
