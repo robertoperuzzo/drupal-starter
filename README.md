@@ -125,6 +125,7 @@ This starter kit contains the following contrib modules dependencies:
 | [Google Analytics](https://www.drupal.org/project/google_analytics)               | drupal/google_analytics        |
 | [Mail System](https://www.drupal.org/project/mailsystem)                          | drupal/mailsystem              |
 | [Metatag](https://www.drupal.org/project/metatag)                                 | drupal/metatag                 |
+| [Monolog](https://www.drupal.org/project/monolog)                                 | drupal/monolog                 |
 | [Pathauto](https://www.drupal.org/project/pathauto)                               | drupal/pathauto                |
 | [Redirect](https://www.drupal.org/project/redirect)                               | drupal/redirect                |
 | [Reroute Email](https://www.drupal.org/project/reroute_email)                     | drupal/reroute_email           |
