@@ -33,7 +33,7 @@ sSee also [Docker Compose](https://docs.docker.com/compose/).
 
 To start your new project, you need to [Docker](https://www.docker.com/get-started) and follow the steps below:
 
-### Clone the project
+### Clone the project
 Clone this repository wherever you want
 ```
 $ git clone git@github.com:robertoperuzzo/drupal8-starter.git your-project-nam
