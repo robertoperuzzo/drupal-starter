@@ -7,7 +7,7 @@
 name: 'app'
 
 # The runtime the application uses.
-type: 'php:7.1'
+type: 'php:7.2'
 
 # The relationships of the application with services or other applications.
 #
@@ -15,22 +15,38 @@ type: 'php:7.1'
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: 'mysqldb:mysql'
-#    solr: 'solrsearch:solr'
-#    redis: 'rediscache:redis'
+    database: 'db:mysql'
+## Uncomment this line to enable Redis caching for Drupal.
+#    redis: 'cache:redis'
+
+# Add additional PHP extensions.
+runtime:
+    extensions:
+        - redis
 
 # The size of the persistent disk of the application (in MB).
 disk: 2048
 
-# The 'mounts' describe writable, persistent filesystem mounts in the application. The keys are
-# directory paths, relative to the application root. The values are strings such as
-# 'shared:files/PATH', where PATH is a relative path under the mount's source directory.
+# The 'mounts' describe writable, persistent filesystem mounts in the application.
 mounts:
-    '/web/sites/default/files': 'shared:files/files'
-    '/tmp': 'shared:files/tmp'
-    '/private': 'shared:files/private'
-    '/.drush': 'shared:files/.drush'
-    '/drush-backups': 'shared:files/drush-backups'
+    '/web/sites/default/files':
+        source: local
+        source_path: 'files'
+    '/tmp':
+        source: local
+        source_path: 'tmp'
+    '/private':
+        source: local
+        source_path: 'private'
+    '/.drush':
+        source: local
+        source_path: 'drush'
+    '/drush-backups':
+        source: local
+        source_path: 'drush-backups'
+    '/.console':
+        source: local
+        source_path: 'console'
 
 # Configuration of the build of this application.
 build:
@@ -40,12 +56,12 @@ build:
 hooks:
     # The deploy hook runs after your application has been deployed and started.
     deploy: |
-      set -e
-      cd web
-      drush -y cache-rebuild
-      drush -y updatedb
-      drush -y config-import
-      drush -y entup
+        set -e
+        php ./drush/platformsh_generate_drush_yml.php
+        cd web
+        drush -y cache-rebuild
+        drush -y updatedb
+        drush -y config-import
 
 # The configuration of app when it is exposed to the web.
 web:
