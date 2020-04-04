@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  mariadb:
+    volumes:
+      - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
+
+  php:
+    volumes:
+# For macOS users (https://wodby.com/docs/stacks/drupal/local#docker-for-mac)
+      - ./:/var/www/html:cached # User-guided caching
+
+  nginx:
+    volumes:
+# For macOS users (https://wodby.com/docs/stacks/drupal/local#docker-for-mac)
+      - ./:/var/www/html:cached # User-guided caching
