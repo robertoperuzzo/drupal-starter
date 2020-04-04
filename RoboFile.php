@@ -63,20 +63,6 @@ class RoboFile extends \Robo\Tasks
   }
 
   /**
-   * Start docker containers.
-   */
-  public function start() {
-    $this->_exec('make up');
-  }
-
-  /**
-   * Stop docker containers.
-   */
-  public function stop() {
-    $this->_exec('make stop');
-  }
-
-  /**
    * Clean local environment.
    */
   public function prune() {
