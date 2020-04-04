@@ -5,3 +5,14 @@ services:
     volumes:
       - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
 
+  php:
+    volumes:
+      - $PROJECT_ROOT:/var/www/html
+
+  nginx:
+    volumes:
+      - $PROJECT_ROOT:/var/www/html
+
+#  apache:
+#    volumes:
+#      - $PROJECT_ROOT:/var/www/html

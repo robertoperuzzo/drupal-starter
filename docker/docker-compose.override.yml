@@ -8,9 +8,9 @@ services:
   php:
     volumes:
 # For macOS users (https://wodby.com/docs/stacks/drupal/local#docker-for-mac)
-      - ./:/var/www/html:cached # User-guided caching
+      - $PROJECT_ROOT:/var/www/html:cached # User-guided caching
 
   nginx:
     volumes:
 # For macOS users (https://wodby.com/docs/stacks/drupal/local#docker-for-mac)
-      - ./:/var/www/html:cached # User-guided caching
+      - $PROJECT_ROOT:/var/www/html:cached # User-guided caching
