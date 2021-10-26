@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+
+  php:
+    image: wodby/drupal-php:$PHP_TAG_MACOS
+    environment:
+      PHP_XDEBUG_CLIENT_HOST: host.docker.internal # Docker 18.03+ Mac/Win
+    volumes:
+    - 'data:/var/www/html' # MacOs nfs version
+
+  nginx:
+    volumes:
+    - 'data:/var/www/html' # MacOs nfs version
+
+  apache:
+    volumes:
+    - 'data:/var/www/html' # MacOs nfs version
+
+  mariadb:
+    # Expose port of database
+    ports:
+    - 3306:3306
+
+  phpqa:
+    image: lucacracco/phpqa:version-2.2
+    command: 'tail -f /dev/null'
+    container_name: "${PROJECT_NAME}_qa"
+    volumes:
+    - 'data:/var/www/html' # MacOs nfs version
+
+  traefik:
+    ports:
+    - '8000:80'
+    - '8080:8080' # Dashboard
+
+## For macOS users (native NFS)
+# Enable this on MacOs after executing file-setup_native_nfs_docker_osx.sh
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ':${PROJECT_DOCROOT}'
