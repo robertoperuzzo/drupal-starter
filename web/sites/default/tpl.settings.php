@@ -88,7 +88,16 @@
  * ];
  * @endcode
  */
-$databases = [];
+$databases['default']['default'] = [
+  'database' => getenv('DB_NAME'),
+  'username' => getenv('DB_USER'),
+  'password' => getenv('DB_PASSWORD'),
+  'host' => getenv('DB_HOST'),
+  'port' => getenv('DB_PORT'),
+  'driver' => 'mysql',
+  'prefix' => '',
+  'collation' => 'utf8mb4_general_ci',
+];
 
 /**
  * Customizing database settings.
@@ -237,7 +246,7 @@ $databases = [];
  * directory in the public files path. The setting below allows you to set
  * its location.
  */
-# $settings['config_sync_directory'] = '/directory/outside/webroot';
+$settings['config_sync_directory'] = '../config/default/sync';
 
 /**
  * Settings:
@@ -520,7 +529,7 @@ if ($settings['hash_salt']) {
  * See https://www.drupal.org/documentation/modules/file for more information
  * about securing private files.
  */
-# $settings['file_private_path'] = '';
+$settings['file_private_path'] = '../private';
 
 /**
  * Temporary file path:
@@ -742,6 +751,96 @@ $settings['entity_update_batch_size'] = 50;
 $settings['entity_update_backup'] = TRUE;
 
 /**
+ * Setup Redis.
+ */
+if (!\Drupal\Core\Installer\InstallerKernel::installationAttempted() && extension_loaded('redis') && class_exists('Drupal\redis\ClientFactory')) {
+
+  // Set Redis as the default backend for any cache bin not otherwise specified.
+  $settings['cache']['default'] = 'cache.backend.redis';
+  $settings['cache']['bins']['bootstrap'] = 'cache.backend.chainedfast';
+  $settings['cache']['bins']['discovery'] = 'cache.backend.chainedfast';
+  $settings['cache']['bins']['config'] = 'cache.backend.chainedfast';
+
+  $settings['redis.connection']['host'] = 'redis';
+  $settings['redis.connection']['port'] = '6379';
+  #$settings['cache_prefix'] = '';
+
+  // Apply changes to the container configuration to better leverage Redis.
+  // This includes using Redis for the lock and flood control systems, as well
+  // as the cache tag checksum. Alternatively, copy the contents of that file
+  // to your project-specific services.yml file, modify as appropriate, and
+  // remove this line.
+  $settings['container_yamls'][] = 'modules/contrib/redis/example.services.yml';
+
+  // Allow the services to work before the Redis module itself is enabled.
+  $settings['container_yamls'][] = 'modules/contrib/redis/redis.services.yml';
+
+  // Manually add the classloader path, this is required for the container cache bin definition below
+  // and allows to use it without the redis module being enabled.
+  $class_loader->addPsr4('Drupal\\redis\\', 'modules/contrib/redis/src');
+
+  // Use redis for container cache.
+  // The container cache is used to load the container definition itself, and
+  // thus any configuration stored in the container itself is not available
+  // yet. These lines force the container cache to use Redis rather than the
+  // default SQL cache.
+  $settings['bootstrap_container_definition'] = [
+    'parameters' => [],
+    'services' => [
+      'redis.factory' => [
+        'class' => 'Drupal\redis\ClientFactory',
+      ],
+      'cache.backend.redis' => [
+        'class' => 'Drupal\redis\Cache\CacheBackendFactory',
+        'arguments' => ['@redis.factory', '@cache_tags_provider.container', '@serialization.phpserialize'],
+      ],
+      'cache.container' => [
+        'class' => '\Drupal\redis\Cache\PhpRedis',
+        'factory' => ['@cache.backend.redis', 'get'],
+        'arguments' => ['container'],
+      ],
+      'cache_tags_provider.container' => [
+        'class' => 'Drupal\redis\Cache\RedisCacheTagsChecksum',
+        'arguments' => ['@redis.factory'],
+      ],
+      'serialization.phpserialize' => [
+        'class' => 'Drupal\Component\Serialization\PhpSerialize',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Monolog.
+ */
+if (file_exists($app_root . '/' . $site_path . '/monolog.services.yml')) {
+  $settings['container_yamls'][] = $app_root . '/' . $site_path . '/monolog.services.yml';
+}
+if (file_exists($app_root . '/' . $site_path . '/monolog.services.local.yml')) {
+  $settings['container_yamls'][] = $app_root . '/' . $site_path . '/monolog.services.local.yml';
+}
+
+/**
+ * CONFIG_SPLIT config.
+ */
+$config['config_split.config_split.dev']['status'] = in_array(getenv('DRUPAL_ENV'), ['local','dev'])? TRUE : FALSE;
+$config['config_split.config_split.prod']['status'] = in_array(getenv('DRUPAL_ENV'), ['stage','prod'])? TRUE : FALSE;
+
+/**
+ * Environment indicator.
+ */
+$config['environment_indicator.indicator']['bg_color'] = '#829356';
+$config['environment_indicator.indicator']['fg_color'] = '#FFFFFF';
+$config['environment_indicator.indicator']['name'] = strtoupper(getenv('DRUPAL_ENV'));
+
+/**
+ * Automatic Platform.sh settings.
+ */
+if (file_exists($app_root . '/' . $site_path . '/settings.platformsh.php')) {
+    include $app_root . '/' . $site_path . '/settings.platformsh.php';
+}
+
+/**
  * Load local development override configuration, if available.
  *
  * Use settings.local.php to override variables on secondary (staging,
@@ -751,7 +850,6 @@ $settings['entity_update_backup'] = TRUE;
  *
  * Keep this code block at the end of this file to take full effect.
  */
-#
-# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-#   include $app_root . '/' . $site_path . '/settings.local.php';
-# }
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+    include $app_root . '/' . $site_path . '/settings.local.php';
+}

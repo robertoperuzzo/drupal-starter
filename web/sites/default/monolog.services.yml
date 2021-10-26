@@ -1,0 +1,25 @@
+parameters:
+  # Logger levels.
+  monolog.level.emergency: 600
+  monolog.level.alert: 550
+  monolog.level.critical: 500
+  monolog.level.error: 400
+  monolog.level.warning: 300
+  monolog.level.notice: 250
+  monolog.level.info: 200
+  monolog.level.debug: 100
+
+  # Monolog
+  monolog.channel_handlers:
+    php: ['rotating_file_all','rotating_file_php']
+    default: ['rotating_file_all', 'drupal.dblog']
+  monolog.processors: ['message_placeholder', 'current_user', 'request_uri', 'ip', 'referer', 'memory_usage']
+
+services:
+
+  monolog.handler.rotating_file_php:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../logs/php.log', 10, '%monolog.level.notice%']
+  monolog.handler.rotating_file_all:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../logs/debug.log', 10, '%monolog.level.debug%']
