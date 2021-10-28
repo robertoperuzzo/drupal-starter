@@ -30,8 +30,14 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress
 
+    - name: Install Drush laucher
+      run: |
+        wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar
+        chmod +x drush.phar
+        sudo mv drush.phar /usr/local/bin/drush
+
     - name: Install Drupal
-      run: vendor/bin/drush site-install --db-url=sqlite://../drupal.sqlite
+      run: drush site-install --db-url=sqlite://../drupal.sqlite
 
     - name: Test Robo Deploy
       run: vendor/bin/robo deploy
