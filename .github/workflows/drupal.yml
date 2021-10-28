@@ -39,5 +39,5 @@ jobs:
     - name: Install Drupal
       run: drush site-install --db-url=sqlite://../drupal.sqlite
 
-    - name: Test Robo Deploy
-      run: vendor/bin/robo deploy
+    - name: Test Robo
+      run: vendor/bin/robo config:export
