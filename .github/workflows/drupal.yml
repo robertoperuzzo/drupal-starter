@@ -26,20 +26,6 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
-    - name: Get Composer Cache Directory
-      id: get-composer-cache-dir
-      run: |
-        echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-    - name: Composer Cache
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: ${{ steps.get-composer-cache-dir.outputs.dir }}
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-composer-
-
     - name: Install Drupal dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress
