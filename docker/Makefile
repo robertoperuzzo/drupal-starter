@@ -2,23 +2,23 @@ include .env
 
 default: up
 
-LAMP = -f docker-compose.yml
+conf = -f docker-compose.yml
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S),Darwin)
-	LAMP := $(LAMP) -f docker-compose.override.mac.yml
+	conf := $(conf) -f docker-compose.override.mac.yml
 endif
 
 ifeq ($(TRAEFIK),ON)
-	LAMP := $(LAMP) -f docker-compose.override.traefik.yml
+	conf := $(conf) -f docker-compose.override.traefik.yml
 endif
 
 ifeq ($(XDEBUG),ON)
-	LAMP := $(LAMP) -f docker-compose.override.xdebug.yml
+	conf := $(conf) -f docker-compose.override.xdebug.yml
 endif
 
 ifneq ("$(wildcard docker-compose.override.yml)","")
-    LAMP := $(LAMP) -f docker-compose.override.yml
+    conf := $(conf) -f docker-compose.override.yml
 endif
 
 COMPOSER_ROOT ?= /var/www/html
@@ -39,7 +39,7 @@ endif
 up:
 	@echo "Starting up containers for $(PROJECT_NAME)..."
 	docker-compose pull
-	docker-compose up -d --remove-orphans
+	docker-compose $(conf) up -d --remove-orphans
 
 .PHONY: mutagen
 mutagen:
@@ -54,13 +54,13 @@ down: stop
 .PHONY: start
 start:
 	@echo "Starting containers for $(PROJECT_NAME) from where you left off..."
-	@docker-compose start
+	@docker-compose $(conf) start
 
 ## stop	:	Stop containers.
 .PHONY: stop
 stop:
 	@echo "Stopping containers for $(PROJECT_NAME)..."
-	@docker-compose stop
+	@docker-compose $(conf) stop
 
 ## prune	:	Remove containers and their volumes.
 ##		You can optionally pass an argument with the service name to prune single container
@@ -69,7 +69,7 @@ stop:
 .PHONY: prune
 prune:
 	@echo "Removing containers for $(PROJECT_NAME)..."
-	@docker-compose down -v $(filter-out $@,$(MAKECMDGOALS))
+	@docker-compose $(conf) down -v $(filter-out $@,$(MAKECMDGOALS))
 
 ## ps	:	List running containers.
 .PHONY: ps
@@ -103,6 +103,11 @@ drush:
 .PHONY: logs
 logs:
 	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
+
+## setup: Setup Docker .env settings file.
+.PHONY: setup
+setup:
+	@cp `pwd`/.env.dist `pwd`/.env
 
 ## analyze:	Analyze code project.
 ##		You can analyze code with custom docker container that use phpqa.

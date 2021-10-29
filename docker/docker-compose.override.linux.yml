@@ -4,6 +4,12 @@ services:
 
   php:
     environment:
+      DB_HOST: $DB_HOST
+      DB_PORT: $DB_PORT
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+      DB_NAME: $DB_NAME
+      DB_DRIVER: $DB_DRIVER
       # Linux correct permission files.
       PHP_FPM_USER: wodby
       PHP_FPM_GROUP: wodby
@@ -29,6 +35,10 @@ services:
     # Expose port of database
     ports:
     - 3306:3306
+
+  redis:
+    container_name: "${PROJECT_NAME}_redis"
+    image: wodby/redis:$REDIS_TAG
 
   phpqa:
     image: lucacracco/phpqa:version-2.2

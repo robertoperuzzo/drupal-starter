@@ -5,29 +5,55 @@ services:
   php:
     image: wodby/drupal-php:$PHP_TAG_MACOS
     environment:
+      DB_HOST: $DB_HOST
+      DB_PORT: $DB_PORT
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+      DB_NAME: $DB_NAME
+      DB_DRIVER: $DB_DRIVER
       PHP_XDEBUG_CLIENT_HOST: host.docker.internal # Docker 18.03+ Mac/Win
     volumes:
-    - 'data:/var/www/html' # MacOs nfs version
+    - $PROJECT_DOCROOT:/var/www/html:cached
+    ## Alternative for macOS users: Mutagen https://wodby.com/docs/stacks/drupal/local#docker-for-mac
+    #- mutagen:/var/www/html
+    ## MacOs nfs version
+    #- 'data:/var/www/html'
 
   nginx:
     volumes:
-    - 'data:/var/www/html' # MacOs nfs version
+    - $PROJECT_DOCROOT:/var/www/html:cached
+    ## Alternative for macOS users: Mutagen https://wodby.com/docs/stacks/drupal/local#docker-for-mac
+    #- mutagen:/var/www/html
+    ## MacOs nfs version
+    #- 'data:/var/www/html'
 
-  apache:
-    volumes:
-    - 'data:/var/www/html' # MacOs nfs version
+  # apache:
+  #   volumes:
+  #   - $PROJECT_DOCROOT:/var/www/html:cached
+  #   ## Alternative for macOS users: Mutagen https://wodby.com/docs/stacks/drupal/local#docker-for-mac
+  #   #- mutagen:/var/www/html
+  #   ## MacOs nfs version
+  #   #- 'data:/var/www/html'
 
   mariadb:
     # Expose port of database
     ports:
     - 3306:3306
 
+  redis:
+    container_name: "${PROJECT_NAME}_redis"
+    image: wodby/redis:$REDIS_TAG
+
   phpqa:
     image: lucacracco/phpqa:version-2.2
     command: 'tail -f /dev/null'
     container_name: "${PROJECT_NAME}_qa"
     volumes:
-    - 'data:/var/www/html' # MacOs nfs version
+      - $PROJECT_DOCROOT:/var/www/html:cached
+    ## Alternative for macOS users: Mutagen https://wodby.com/docs/stacks/drupal/local#docker-for-mac
+    #- mutagen:/var/www/html
+    ## MacOs nfs version
+    #- 'data:/var/www/html'
 
   traefik:
     ports:
@@ -36,10 +62,11 @@ services:
 
 ## For macOS users (native NFS)
 # Enable this on MacOs after executing file-setup_native_nfs_docker_osx.sh
-volumes:
-  data:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
-      device: ':${PROJECT_DOCROOT}'
+# volumes:
+#   mutagen:
+#   data:
+#     driver: local
+#     driver_opts:
+#       type: nfs
+#       o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+#       device: ':${PROJECT_DOCROOT}'
