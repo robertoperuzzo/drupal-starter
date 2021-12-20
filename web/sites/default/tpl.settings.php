@@ -824,7 +824,7 @@ if (file_exists($app_root . '/' . $site_path . '/monolog.services.local.yml')) {
  * CONFIG_SPLIT config.
  */
 $config['config_split.config_split.dev']['status'] = in_array(getenv('DRUPAL_ENV'), ['local','dev'])? TRUE : FALSE;
-$config['config_split.config_split.prod']['status'] = in_array(getenv('DRUPAL_ENV'), ['stage','prod'])? TRUE : FALSE;
+$config['config_split.config_split.live']['status'] = in_array(getenv('DRUPAL_ENV'), ['stage','live'])? TRUE : FALSE;
 
 /**
  * Environment indicator.
@@ -840,16 +840,24 @@ if (file_exists($app_root . '/' . $site_path . '/settings.platformsh.php')) {
     include $app_root . '/' . $site_path . '/settings.platformsh.php';
 }
 
+// Automatically generated include for settings managed by ddev.
+if (file_exists(__DIR__ . '/settings.ddev.php') && getenv('IS_DDEV_PROJECT') == 'true') {
+  include __DIR__ . '/settings.ddev.php';
+}
+
 /**
  * Load local development override configuration, if available.
  *
- * Use settings.local.php to override variables on secondary (staging,
- * development, etc) installations of this site. Typically used to disable
- * caching, JavaScript/CSS compression, re-routing of outgoing emails, and
- * other things that should not happen on development and testing sites.
+ * Create a settings.local.php file to override variables on secondary (staging,
+ * development, etc.) installations of this site.
+ *
+ * Typical uses of settings.local.php include:
+ * - Disabling caching.
+ * - Disabling JavaScript/CSS compression.
+ * - Rerouting outgoing emails.
  *
  * Keep this code block at the end of this file to take full effect.
  */
 if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-    include $app_root . '/' . $site_path . '/settings.local.php';
+  include $app_root . '/' . $site_path . '/settings.local.php';
 }

@@ -5,6 +5,7 @@ services:
   php:
     image: wodby/drupal-php:$PHP_TAG_MACOS
     environment:
+      DRUPAL_ENV: $DRUPAL_ENV
       DB_HOST: $DB_HOST
       DB_PORT: $DB_PORT
       DB_USER: $DB_USER
