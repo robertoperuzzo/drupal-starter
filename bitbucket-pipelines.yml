@@ -1,0 +1,26 @@
+image: wodby/drupal-php:7.4-4.28.0
+
+codingStandards: &codingStandards
+  - step:
+      name: Static code analysis
+      caches:
+        - composer
+        - docker
+      script:
+        - /docker-entrypoint.sh
+        - composer validate --strict
+        - composer install --prefer-dist --no-progress
+        - docker run -v $BITBUCKET_CLONE_DIR:/var/www/html -w /var/www/html -i drud/ddev-webserver:v1.18.2 /bin/bash -c "/usr/local/bin/disable_xdebug && /var/www/html/vendor/bin/phpqa --config=phpqa"
+      artifacts:
+        - reports/**
+      services:
+        - docker
+
+pipelines:
+  pull-requests:
+    feature/*:
+      - <<: *codingStandards
+    release/*:
+      - <<: *codingStandards
+    updates/*:
+      - <<: *codingStandards
