@@ -1,0 +1,6 @@
+#!/bin/bash
+
+## Description: Run robo commands.
+## Usage: robo [command]
+
+robo "$@"

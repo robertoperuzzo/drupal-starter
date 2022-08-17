@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: Run yarn commands.
+## Usage: theme [command]
+## Example: "ddev theme build -- Read the README.txt for more commands"
+
+cd /var/www/html/web/themes/custom/polito && yarn install && yarn $@

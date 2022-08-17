@@ -1,0 +1,20 @@
+parameters:
+  bootstrapFiles:
+    - %currentWorkingDirectory%/web/autoload.php
+    - %currentWorkingDirectory%/web/phpstan-bootstrap.php
+  customRulesetUsed: true
+  reportUnmatchedIgnoredErrors: false
+  # Ignore phpstan-drupal extension's rules.
+  ignoreErrors:
+    - '#\Drupal calls should be avoided in classes, use dependency injection instead#'
+    - '#Plugin definitions cannot be altered.#'
+    - '#Missing cache backend declaration for performance.#'
+    - '#Plugin manager has cache backend specified but does not declare cache tags.#'
+    - '#Parameter \$event of method .+ has typehint with deprecated class .+#'
+    - '#Method .+ invoked with 3 parameters, 1 required.#'
+    - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$value.#'
+  drupal:
+    drupal_root: %currentWorkingDirectory%/web
+includes:
+    - /tools/.composer/vendor/mglaman/phpstan-drupal/extension.neon
+    - /tools/.composer/vendor/phpstan/phpstan-deprecation-rules/rules.neon
