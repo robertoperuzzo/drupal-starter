@@ -1,22 +1,46 @@
 stages:
-  - phpqa
+  - build
+  - test
+
+# Select image.
+image: wodby/drupal-php:8.0-dev
 
 cache:
   key: $CI_COMMIT_REF_SLUG
   paths:
     - vendor/
+    - web/core/
+    - web/libraries/
+    - web/modules/contrib/
+    - web/profiles/contrib/
+    - web/themes/contrib/
+    - drush/Commands/
 
-phpqa:
-  stage: phpqa
-  image: drud/ddev-webserver:v1.20.0
+before_script:
+  - composer install --no-ansi -n --prefer-dist
+
+services:
+  - mariadb:latest
+
+variables:
+  # Required by service:mariadb.
+  MYSQL_DATABASE: "drupal"
+  MYSQL_ALLOW_EMPTY_PASSWORD: "1"
+  # Required by Drupal tests with PHPunit.
+  SIMPLETEST_BASE_URL: "http://localhost"
+  SIMPLETEST_DB: "mysql://root@mariadb/drupal"
+
+build/composer:
+  stage: build
   script:
-    - vendor/bin/phpqa --config=phpqa
-  before_script:
-    - /usr/local/bin/disable_xdebug
-    - composer validate --strict
-    - composer install --prefer-dist --no-progress
+    - composer validate --no-check-all --no-check-publish -n --no-ansi
+
+test/phpqa:
+  stage: test
+  allow_failure: true
+  script:
+    - ./vendor/bin/phpqa --config ./.phpqa
   artifacts:
     paths:
-      - 'reports/'
-    when: always
+      - reports
     expire_in: 1 week

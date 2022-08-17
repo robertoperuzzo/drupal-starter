@@ -1,6 +1,0 @@
-#!/bin/bash
-
-## Description: Run static analysis on the codebase.
-## Usage: qa
-
-phpqa --config=phpqa
