@@ -1,17 +1,19 @@
 pipeline:
+  - name: Check private logs dir exists
+    type: command
+    command: "if [ -d /mnt/files/private/logs ]; then echo 'Exists'; else mkdir -p /mnt/files/private/logs && echo 'Created'; fi"
+  - name: Fix ownership and permissions
+    type: command
+    command: "sudo files_chown /mnt/files/private && sudo files_chmod /mnt/files/private"
   - name: Install dependencies
     type: command
     command: composer install --no-interaction --optimize-autoloader
     directory: $APP_ROOT
-  - name: Drupal 8 databse update
+  - name: Drupal scaffold
     type: command
-    command: drush updb
-    directory: $HTTP_ROOT
-  - name: Drupal 8 configuration import
+    command: robo scaffold
+    directory: $APP_ROOT
+  - name: Drupal deploy
     type: command
-    command: drush cim
-    directory: $HTTP_ROOT
-  - name: Drupal 8 clear cache
-    type: command
-    command: drush cr
-    directory: $HTTP_ROOT
+    command: robo deploy
+    directory: $APP_ROOT

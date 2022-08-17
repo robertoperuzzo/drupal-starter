@@ -236,19 +236,6 @@ $databases['default']['default'] = [
  */
 
 /**
- * Location of the site configuration files.
- *
- * The $settings['config_sync_directory'] specifies the location of file system
- * directory used for syncing configuration data. On install, the directory is
- * created. This is used for configuration imports.
- *
- * The default location for this directory is inside a randomly-named
- * directory in the public files path. The setting below allows you to set
- * its location.
- */
-$settings['config_sync_directory'] = '../config/default/sync';
-
-/**
  * Settings:
  *
  * $settings contains environment-specific configuration, such as the files
@@ -751,66 +738,6 @@ $settings['entity_update_batch_size'] = 50;
 $settings['entity_update_backup'] = TRUE;
 
 /**
- * Setup Redis.
- */
-if (!\Drupal\Core\Installer\InstallerKernel::installationAttempted() && extension_loaded('redis') && class_exists('Drupal\redis\ClientFactory')) {
-
-  // Set Redis as the default backend for any cache bin not otherwise specified.
-  $settings['cache']['default'] = 'cache.backend.redis';
-  $settings['cache']['bins']['bootstrap'] = 'cache.backend.chainedfast';
-  $settings['cache']['bins']['discovery'] = 'cache.backend.chainedfast';
-  $settings['cache']['bins']['config'] = 'cache.backend.chainedfast';
-
-  $settings['redis.connection']['host'] = 'redis';
-  $settings['redis.connection']['port'] = '6379';
-  #$settings['cache_prefix'] = '';
-
-  // Apply changes to the container configuration to better leverage Redis.
-  // This includes using Redis for the lock and flood control systems, as well
-  // as the cache tag checksum. Alternatively, copy the contents of that file
-  // to your project-specific services.yml file, modify as appropriate, and
-  // remove this line.
-  $settings['container_yamls'][] = 'modules/contrib/redis/example.services.yml';
-
-  // Allow the services to work before the Redis module itself is enabled.
-  $settings['container_yamls'][] = 'modules/contrib/redis/redis.services.yml';
-
-  // Manually add the classloader path, this is required for the container cache bin definition below
-  // and allows to use it without the redis module being enabled.
-  $class_loader->addPsr4('Drupal\\redis\\', 'modules/contrib/redis/src');
-
-  // Use redis for container cache.
-  // The container cache is used to load the container definition itself, and
-  // thus any configuration stored in the container itself is not available
-  // yet. These lines force the container cache to use Redis rather than the
-  // default SQL cache.
-  $settings['bootstrap_container_definition'] = [
-    'parameters' => [],
-    'services' => [
-      'redis.factory' => [
-        'class' => 'Drupal\redis\ClientFactory',
-      ],
-      'cache.backend.redis' => [
-        'class' => 'Drupal\redis\Cache\CacheBackendFactory',
-        'arguments' => ['@redis.factory', '@cache_tags_provider.container', '@serialization.phpserialize'],
-      ],
-      'cache.container' => [
-        'class' => '\Drupal\redis\Cache\PhpRedis',
-        'factory' => ['@cache.backend.redis', 'get'],
-        'arguments' => ['container'],
-      ],
-      'cache_tags_provider.container' => [
-        'class' => 'Drupal\redis\Cache\RedisCacheTagsChecksum',
-        'arguments' => ['@redis.factory'],
-      ],
-      'serialization.phpserialize' => [
-        'class' => 'Drupal\Component\Serialization\PhpSerialize',
-      ],
-    ],
-  ];
-}
-
-/**
  * Monolog.
  */
 if (file_exists($app_root . '/' . $site_path . '/monolog.services.yml')) {
@@ -823,8 +750,9 @@ if (file_exists($app_root . '/' . $site_path . '/monolog.services.local.yml')) {
 /**
  * CONFIG_SPLIT config.
  */
-$config['config_split.config_split.dev']['status'] = in_array(getenv('DRUPAL_ENV'), ['local','dev'])? TRUE : FALSE;
-$config['config_split.config_split.prod']['status'] = in_array(getenv('DRUPAL_ENV'), ['stage','prod'])? TRUE : FALSE;
+$config['config_split.config_split.dev']['status'] = in_array(getenv('DRUPAL_ENV'), ['local','dev']);
+$config['config_split.config_split.live']['status'] = in_array(getenv('DRUPAL_ENV'), ['stage','live']);
+$config['config_split.config_split.migrate']['status'] = in_array(getenv('DRUPAL_ENV'), ['local','dev', 'stage']);
 
 /**
  * Environment indicator.
@@ -843,13 +771,64 @@ if (file_exists($app_root . '/' . $site_path . '/settings.platformsh.php')) {
 /**
  * Load local development override configuration, if available.
  *
- * Use settings.local.php to override variables on secondary (staging,
- * development, etc) installations of this site. Typically used to disable
- * caching, JavaScript/CSS compression, re-routing of outgoing emails, and
- * other things that should not happen on development and testing sites.
+ * Create a settings.local.php file to override variables on secondary (staging,
+ * development, etc.) installations of this site.
+ *
+ * Typical uses of settings.local.php include:
+ * - Disabling caching.
+ * - Disabling JavaScript/CSS compression.
+ * - Rerouting outgoing emails.
  *
  * Keep this code block at the end of this file to take full effect.
  */
 if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-    include $app_root . '/' . $site_path . '/settings.local.php';
+  include $app_root . '/' . $site_path . '/settings.local.php';
+}
+
+/**
+ * Load migrate configuration, if available.
+ *
+ * Create a settings.migrate.php file to override variables.
+ */
+if (file_exists($app_root . '/' . $site_path . '/settings.migrate.php')) {
+  include $app_root . '/' . $site_path . '/settings.migrate.php';
+}
+
+/**
+ * Only in Wodby environment.
+ */
+if (isset($_SERVER['WODBY_APP_NAME'])) {
+  // The include won't be added automatically if it's already there.
+  include '/var/www/conf/wodby.settings.php';
+
+  // Users and permissions. cfr: https://github.com/wodby/php#users-and-permissions
+  $settings['file_private_path'] = '/mnt/files/private';
+
+  // CONFIG_SPLIT config.
+  global $config;
+  $config['config_split.config_split.dev']['status'] = in_array(getenv('WODBY_INSTANCE_TYPE'), ['local','dev']);
+  $config['config_split.config_split.live']['status'] = in_array(getenv('WODBY_INSTANCE_TYPE'), ['stage','prod']);
+  $config['config_split.config_split.migrate']['status'] = in_array(getenv('WODBY_INSTANCE_TYPE'), ['local','dev', 'stage']);
+}
+
+/**
+ * Location of the site configuration files.
+ *
+ * The $settings['config_sync_directory'] specifies the location of file system
+ * directory used for syncing configuration data. On install, the directory is
+ * created. This is used for configuration imports.
+ *
+ * The default location for this directory is inside a randomly-named
+ * directory in the public files path. The setting below allows you to set
+ * its location.
+ */
+$settings['config_sync_directory'] = '../config/default/sync';
+
+/** Content Sync */
+global $content_directories;
+$content_directories['sync'] = $app_root.'/../content/default/sync';
+
+// Automatically generated include for settings managed by ddev.
+if (file_exists(__DIR__ . '/settings.ddev.php') && getenv('IS_DDEV_PROJECT') == 'true') {
+  include __DIR__ . '/settings.ddev.php';
 }

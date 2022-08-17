@@ -1,4 +1,5 @@
 parameters:
+
   # Logger levels.
   monolog.level.emergency: 600
   monolog.level.alert: 550
@@ -19,7 +20,7 @@ services:
 
   monolog.handler.rotating_file_php:
     class: Monolog\Handler\RotatingFileHandler
-    arguments: ['../logs/php.log', 10, '%monolog.level.notice%']
+    arguments: ['private://logs/php.log', 10, '%monolog.level.notice%']
   monolog.handler.rotating_file_all:
     class: Monolog\Handler\RotatingFileHandler
-    arguments: ['../logs/debug.log', 10, '%monolog.level.debug%']
+    arguments: [ 'private://logs/debug.log', 10, '%monolog.level.debug%' ]

@@ -1,0 +1,22 @@
+stages:
+  - phpqa
+
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - vendor/
+
+phpqa:
+  stage: phpqa
+  image: drud/ddev-webserver:v1.20.0
+  script:
+    - vendor/bin/phpqa --config=phpqa
+  before_script:
+    - /usr/local/bin/disable_xdebug
+    - composer validate --strict
+    - composer install --prefer-dist --no-progress
+  artifacts:
+    paths:
+      - 'reports/'
+    when: always
+    expire_in: 1 week
