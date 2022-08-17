@@ -1,9 +1,0 @@
-uuid: 412418e8-134b-4968-81cf-8e9a25afc99e
-langcode: it
-status: true
-dependencies: {  }
-id: it
-label: Italian
-direction: ltr
-weight: 0
-locked: false

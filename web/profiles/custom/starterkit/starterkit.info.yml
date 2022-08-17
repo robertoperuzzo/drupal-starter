@@ -1,7 +1,0 @@
-name: starterkit
-type: profile
-description: 'Build a custom site without pre-configured functionality. Suitable for advanced users.'
-version: VERSION
-core_version_requirement: ^9.0
-interface translation project: starterkit
-interface translation server pattern: ../config/default/translations/%language.po

@@ -2,5 +2,6 @@
 
 ## Description: Build the website.
 composer install --prefer-dist
-robo install starterkit
+robo scaffold
+robo install standard
 robo dcr
