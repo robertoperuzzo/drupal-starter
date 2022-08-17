@@ -1,11 +1,10 @@
-# Drupal 8 project starter kit
+# Project name
+
+> Ex. The project contains the company's website.
 
 ![Repository](https://img.shields.io/badge/Repository-github-blue)
 ![LAMP](https://img.shields.io/badge/LAMP-Docker-blue)
 ![Software](https://img.shields.io/badge/Software-Drupal9-blue)
-
-This project provides a starter kit for Drupal 8 projects mixing [Drupal project template for Platform.sh](https://github.com/platformsh/platformsh-example-drupal8) and
- [Docker-based Drupal stack](https://github.com/wodby/docker4drupal) for local development environment.
 
 ## Using as a reference
 
@@ -28,82 +27,58 @@ git push
 ## How does this starter kit differ from vanilla Drupal in Drupal.org?
 
 1. There are some differences documented on [Drupal project template for Platform.sh](https://github.com/platformsh/platformsh-example-drupal8#how-does-this-starter-kit-differ-from-vanilla-drupal-from-drupalorg).
-2. We include [`docker-compose.yml`](https://github.com/robertoperuzzo/drupal8-starter/blob/master/docker-compose.yml) file
-to run useful docker containers for local development environment as described here [Docker-based Drupal stack](https://github.com/wodby/docker4drupal).
-You are free to tweak it as needed for your particular environment.
-sSee also [Docker Compose](https://docs.docker.com/compose/).
+2. We added `wodby.yml` in order to use in case [Wodby](https://wodby.com/) infrastructure.
+3. We added DDEV configuration in `.ddev` folder.
 
 ## Starting your local environment
 
-To start your new project, you need to [Docker](https://www.docker.com/get-started) and follow the steps below:
+First of all you need [Docker](https://www.docker.com/get-started) and [DDEV](https://ddev.com/get-started/).
 
-### Clone the project
+### 1. Clone the project
 
 Clone this repository wherever you want
 
-```sh
-git clone git@github.com:robertoperuzzo/drupal8-starter.git your-project-name
-cd your-project-name
-```
+    git clone git@....  [project-folder-name]
+    cd [project-folder-name]
 
-### Setup docker4drupal
+### 2. Build
 
-Copy the environment config file
+Start local environment and install drupal from scratch using the current configurations
 
-```sh
-make setup
-```
+    ddev build
 
-Then edit this file to set your project name
+## Environment management commands
 
-```makefile
-PROJECT_NAME=my_drupal8_project
-```
+Here some useful commands to manage your local environment.
 
-and choose your application stack.
+### Local deployment
 
-### With Platform.sh
+When you download new code (`git pull` from repository) you need to run
+the following commands in order to sync your local environment:
 
-Run
+    ddev composer install --prefer-dist
+    ddev robo scaffold
+    ddev robo deploy
 
-```sh
-platform build
-```
+### Export/import configuration
 
-For more details [Platform.sh CLI](https://docs.platform.sh/gettingstarted/cli.html).
+When you change some configuration you have to run:
 
-Copy `settings.local.php` file:
+    ddev robo config:export
 
-```sh
-cp settings.local.php .platform/local/shared/settings.local.php
-```
+If you need to sync your local configuration you have to run:
 
-Run this command from your shell to build up your docker containers.
+    ddev robo config:import
 
-```sh
-make up
-```
+### Export/import database
 
-Open [http://drupal.docker.localhost:8000/](http://drupal.docker.localhost:8000/) in your browser and enjoy your brand new Drupal 8 website!
+If you need to export the database dump you have to run:
 
-## Without Platform.sh
+    ddev robo database:export
 
-Run
+If you need to import the database dump you have to run:
 
-```sh
-make shell
-composer install  --prefer-dist
-```
-
-If you don't have *composer* installed, follow this [tutorial](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx).
-
-Run this command from your shell to build up your docker containers.
-
-```sh
-make up
-```
-
-Open [http://drupal.docker.localhost:8000/](http://drupal.docker.localhost:8000/) in your browser and enjoy your brand new Drupal 8 website!
+    ddev robo database:import [/path/of/dump.sql]
 
 ## Updating Remotes
 
@@ -156,6 +131,4 @@ This starter kit contains the following contrib modules dependencies:
 | [Stage file proxy](https://www.drupal.org/project/stage_file_proxy)               | drupal/stage_file_proxy        |
 | [Token](https://www.drupal.org/project/token)                                     | drupal/token                   |
 | [Twig Tweak](https://www.drupal.org/project/twig_tweak)                           | drupal/twig_tweak              |
-| [Captcha](https://www.drupal.org/project/captcha)                                 | drupal/captcha                 |
-| [ReCaptcha](https://www.drupal.org/project/recaptcha)                             | drupal/recaptcha               |
 | [Permissions filter](https://www.drupal.org/project/permissions_filter)           | drupal/permissions_filter      |
