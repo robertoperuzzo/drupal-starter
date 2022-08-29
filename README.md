@@ -80,30 +80,6 @@ If you need to import the database dump you have to run:
 
     ddev robo database:import [/path/of/dump.sql]
 
-## Updating Remotes
-
-You'll need to update your git remotes to reflect that you won't be pushing to github.com with your project’s code.
-You should rename the original origin remote (the github.com [Drupal 8 project template](https://github.com/robertoperuzzo/drupal8-starter) repository) to 'starter' and create a new origin pointed at your bare repository.
-
-(On your local development environment)
-
-```sh
-git remote rename origin starter
-git remote add origin path/to/your/central/git/repo
-```
-
-To see a list of your remote repositories, run the command:
-
-```sh
-git remote
-```
-
-For a more detailed listing that includes the remote repositories' URLs, add a -v flag (for verbose) to the end of the command:
-
-```sh
-git remote -v
-```
-
 ## Contrib Modules
 
 This starter kit contains the following contrib modules dependencies:
@@ -111,15 +87,10 @@ This starter kit contains the following contrib modules dependencies:
 | Module name                                                                       | Package                        |
 | --------------------------------------------------------------------------------- | ------------------------------ |
 | [Admin Toolbar](https://www.drupal.org/project/admin_toolbar)                     | drupal/admin_toolbar           |
-| [Adminimal Admin Toolbar](https://www.drupal.org/project/adminimal_admin_toolbar) | drupal/adminimal_admin_toolbar |
-| [Adminimal Theme](https://www.drupal.org/project/adminimal_theme)                 | drupal/adminimal_theme         |
-| [Bootstrap](https://www.drupal.org/project/bootstrap)                             | drupal/bootstrap               |
 | [Chaos tool suite (ctools)](https://www.drupal.org/project/ctools)                | drupal/ctools                  |
 | [Config Filter](https://www.drupal.org/project/config_filter)                     | drupal/config_filter           |
 | [Config Ignore](https://www.drupal.org/project/config_ignore)                     | drupal/config_ignore           |
-| [Config installer](https://www.drupal.org/project/config_installer)               | drupal/config_installer        |
 | [Configuration Split](https://www.drupal.org/project/config_split)                | drupal/config_split            |
-| [Google Analytics](https://www.drupal.org/project/google_analytics)               | drupal/google_analytics        |
 | [Mail System](https://www.drupal.org/project/mailsystem)                          | drupal/mailsystem              |
 | [Metatag](https://www.drupal.org/project/metatag)                                 | drupal/metatag                 |
 | [Monolog](https://www.drupal.org/project/monolog)                                 | drupal/monolog                 |

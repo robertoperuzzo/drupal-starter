@@ -1,0 +1,71 @@
+image:
+  file: .gitpod/.gitpod.Dockerfile
+
+# ddev and composer are running as part of the prebuild
+# when starting a workspace all docker images are ready
+tasks:
+  - init: |
+      cp .gitpod/templates/config.gitpod.yaml .ddev/.
+      time ddev debug download-images
+      time .gitpod/project-setup.sh
+    command: |
+      ddev start -y
+      gp ports await 8080 && sleep 1 && gp preview "$(gp url 8080)"
+      echo "The system is ready"
+
+# VScode xdebug extension
+vscode:
+  extensions:
+    # PHP extensions.
+    - felixfbecker.php-debug
+    - wongjn.php-sniffer
+    - neilbrayfield.php-docblocker
+    - bmewburn.vscode-intelephense-client
+
+    # Twig extensions.
+    - mblode.twig-language-2
+
+    # Help extensions.
+    - drupal-mentoring.drupalpod-ext
+
+    # Bash extensions.
+    - timonwong.shellcheck
+    - rogalmic.bash-debug
+
+ports:
+  # Used by JS projects
+  - port: 3000
+    onOpen: ignore
+  # Used by ddev - local db clients
+  - port: 3306
+    name: Database
+    description: Access for local database clients
+    onOpen: ignore
+  # Used by JS projects
+  - port: 5000
+    onOpen: ignore
+  # Used by MailHog
+  - port: 8027
+    name: MailHog
+    description: MailHog
+    onOpen: ignore
+  # Used by phpMyAdmin
+  - port: 8036
+    name: phpMyAdmin
+    description: phpMyAdmin
+    onOpen: ignore
+  # Direct-connect ddev-webserver port that is the main port
+  - port: 8080
+    name: website
+    description: website
+    onOpen: ignore
+  # Ignore host https port
+  - port: 8443
+    name: (not used)
+    description: host https port
+    onOpen: ignore
+  # xdebug port
+  - port: 9003
+    name: xdebug
+    description: xdebug
+    onOpen: ignore
