@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Description: Build the website.
-composer install --prefer-dist
+composer install --prefer-dist --no-interaction
 robo scaffold
 robo install standard
 robo dcr
