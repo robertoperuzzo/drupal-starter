@@ -1,9 +1,10 @@
 {
     "name": "robertoperuzzo/drupal-starter",
     "description": "Project template for Drupal 9 projects with a relocated document root",
+    "keywords": ["drupal", "gitpod", "drupalpod"],
     "type": "project",
     "license": "GPL-2.0-or-later",
-    "homepage": "https://www.drupal.org/project/drupal",
+    "homepage": "https://github.com/robertoperuzzo/drupal-starter",
     "support": {
         "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
         "chat": "https://www.drupal.org/node/314178"
