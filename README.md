@@ -12,16 +12,9 @@ You can use this repository as a reference for your own Drupal projects, and bor
 
 If you are using Platform.sh, I invite you to read further informations on [Drupal project template for Platform.sh](https://github.com/platformsh/platformsh-example-drupal8) page.
 
-## Managing a Drupal site built with Composer
-
-Nothing is easier than managing a Composer-based Drupal site on Platform.sh.
-See [Drupal 8 and Composer](https://docs.platform.sh/frameworks/drupal8.html) for details.
-For example adding a single module to your Drupal installation is as simple as:
-
+## Create new project
 ```sh
-composer require drupal/devel
-git commit -am 'Add the Devel module'
-git push
+composer create-project robertoperuzzo/drupal-starter:dev-gitpod-drupal-9.x my-project-folder
 ```
 
 ## How does this starter kit differ from vanilla Drupal in Drupal.org?
