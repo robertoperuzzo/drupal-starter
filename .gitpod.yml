@@ -7,11 +7,11 @@ tasks:
   - init: |
       cp .gitpod/templates/config.gitpod.yaml .ddev/.
       time ddev debug download-images
-      time .gitpod/project-setup.sh
+      time .gitpod/scripts/project-setup.sh
     command: |
       ddev start -y
       gp ports await 8080 && sleep 1 && gp preview "$(gp url 8080)"
-      echo "The system is ready"
+      cat .gitpod/WELCOME.md
 
 # VScode xdebug extension
 vscode:
