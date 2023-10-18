@@ -4,24 +4,19 @@
 
 ![Repository](https://img.shields.io/badge/Repository-github-blue)
 ![LAMP](https://img.shields.io/badge/LAMP-Docker-blue)
-![Software](https://img.shields.io/badge/Software-Drupal9-blue)
+![Software](https://img.shields.io/badge/Software-Drupal10-blue)
 
 ## Using as a reference
 
 You can use this repository as a reference for your own Drupal projects, and borrow whatever you need.
 
-If you are using Platform.sh, I invite you to read further informations on [Drupal project template for Platform.sh](https://github.com/platformsh/platformsh-example-drupal8) page.
-
 ## Create new project
 ```sh
-composer create-project robertoperuzzo/drupal-starter:dev-gitpod-drupal-9.x my-project-folder
+composer create-project robertoperuzzo/drupal-starter:dev-gitpod-drupal-10.x my-project-folder
 ```
 
 ## How does this starter kit differ from vanilla Drupal in Drupal.org?
-
-1. There are some differences documented on [Drupal project template for Platform.sh](https://github.com/platformsh/platformsh-example-drupal8#how-does-this-starter-kit-differ-from-vanilla-drupal-from-drupalorg).
-2. We added `wodby.yml` in order to use in case [Wodby](https://wodby.com/) infrastructure.
-3. We added DDEV configuration in `.ddev` folder.
+We added DDEV configuration in `.ddev` folder.
 
 ## Starting your local environment
 
